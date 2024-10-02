@@ -192,20 +192,20 @@ func (m *Monkey) readRemoteConfig() error {
 	return m.v.ReadRemoteConfig()
 }
 
-// Enabled returns true if Chaos Monkey is enabled
+// Enabled returns true if scarval is enabled
 func (m *Monkey) Enabled() (bool, error) {
 	return m.getDynamicBool(param.Enabled)
 }
 
-// Leashed returns true if Chaos Monkey is leashed
-// In leashed mode, Chaos Monkey records terminations but does not actually
+// Leashed returns true if scarval is leashed
+// In leashed mode, scarval records terminations but does not actually
 // terminate
 func (m *Monkey) Leashed() (bool, error) {
 	return m.getDynamicBool(param.Leashed)
 }
 
-// ScheduleEnabled returns true if Chaos Monkey termination scheduling is enabled
-// if false, Chaos Monkey will not generate a termination schedule
+// ScheduleEnabled returns true if scarval termination scheduling is enabled
+// if false, scarval will not generate a termination schedule
 func (m *Monkey) ScheduleEnabled() (bool, error) {
 	return m.getDynamicBool(param.ScheduleEnabled)
 }
@@ -219,7 +219,7 @@ func (m *Monkey) getDynamicBool(param string) (bool, error) {
 	return m.v.GetBool(param), nil
 }
 
-// AccountEnabled returns true if Chaos Monkey is enabled for that account
+// AccountEnabled returns true if scarval is enabled for that account
 func (m *Monkey) AccountEnabled(account string) (bool, error) {
 	accounts, err := m.Accounts()
 	if err != nil {
@@ -263,7 +263,7 @@ func toStrings(values []interface{}) ([]string, error) {
 // dependent, see the Location method
 func (m *Monkey) StartHour() int { return m.v.GetInt(param.StartHour) }
 
-// EndHour (o'clock) is the time after which Chaos Monkey will
+// EndHour (o'clock) is the time after which scarval will
 // not terminate instances.
 // this value is in [0,23]
 // This is time-zone dependent, see the Location method
@@ -277,7 +277,7 @@ func (m *Monkey) Location() (*time.Location, error) {
 	return time.LoadLocation(m.v.GetString(param.TimeZone))
 }
 
-// CronPath returns the path to where Chaos Monkey
+// CronPath returns the path to where scarval
 // puts the cron job file with daily terminations
 func (m *Monkey) CronPath() string {
 	return m.v.GetString(param.CronPath)
@@ -396,7 +396,7 @@ func (m *Monkey) DatabaseUser() string {
 	return m.v.GetString(param.DatabaseUser)
 }
 
-// DatabaseName returns the name of the database that stores the Chaos Monkey
+// DatabaseName returns the name of the database that stores the scarval
 // state
 func (m *Monkey) DatabaseName() string {
 	return m.v.GetString(param.DatabaseName)

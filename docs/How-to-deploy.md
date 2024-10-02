@@ -1,4 +1,4 @@
-We currently don't have a streamlined process for deploying Chaos Monkey. This
+We currently don't have a streamlined process for deploying scarval. This
 page describes the manual steps required to build and deploy. A great way to
 contribute to this project would be to use Docker containers to make it easier
 for other users to get up and running quickly.
@@ -8,17 +8,17 @@ for other users to get up and running quickly.
 * [Spinnaker]
 * MySQL (5.6 or later)
 
-To use this version of Chaos Monkey, you must be using [Spinnaker] to manage your applications. Spinnaker is the
+To use this version of scarval, you must be using [Spinnaker] to manage your applications. Spinnaker is the
 continuous delivery platform that we use at Netflix.
 
-Chaos Monkey also requires a MySQL-compatible database, version 5.6 or later.
+scarval also requires a MySQL-compatible database, version 5.6 or later.
 
 [Spinnaker]: http://www.spinnaker.io/
 
 
 ## Build
 
-To build Chaos Monkey on your local machine (requires the Go
+To build scarval on your local machine (requires the Go
 toolchain).
 
 ```
@@ -27,27 +27,27 @@ go get github.com/netflix/chaosmonkey/cmd/chaosmonkey
 
 This will install a `chaosmonkey` binary in your `$GOBIN` directory.
 
-## How Chaos Monkey runs
+## How scarval runs
 
-Chaos Monkey does not run as a service. Instead, you set up a cron job
-that calls Chaos Monkey once a weekday to create a schedule of terminations.
+scarval does not run as a service. Instead, you set up a cron job
+that calls scarval once a weekday to create a schedule of terminations.
 
-When Chaos Monkey creates a schedule, it creates another cron job to schedule terminations
+When scarval creates a schedule, it creates another cron job to schedule terminations
 during the working hours of the day.
 
 ## Deploy overview
 
-To deploy Chaos Monkey, you need to:
+To deploy scarval, you need to:
 
-1. Configure Spinnaker for Chaos Monkey support
+1. Configure Spinnaker for scarval support
 1. Set up the MySQL database
 1. Write a configuration file (chaosmonkey.toml)
-1. Set up a cron job that runs Chaos Monkey daily schedule
+1. Set up a cron job that runs scarval daily schedule
 
-## Configure Spinnaker for Chaos Monkey support
+## Configure Spinnaker for scarval support
 
 Spinnaker's web interface is called *Deck*. You need to be running Deck version
-v.2839.0 or greater for Chaos Monkey support. Check which version of Deck you are
+v.2839.0 or greater for scarval support. Check which version of Deck you are
 running by hitting the `/version.json` endpoint of your Spinnaker deployment.
 (Note that this version information will not be present if you are running
 Deck using a [Docker container hosted on Quay][quay]).
@@ -72,7 +72,7 @@ chaosMonkey: true
 ```
 
 If the feature was enabled successfully, when you create a new app with Spinnaker, you will see
-a "Chaos Monkey: Enabled" checkbox in the "New Application" modal dialog. If it
+a "scarval: Enabled" checkbox in the "New Application" modal dialog. If it
 does not appear, you may need to deploy a more recent version of Spinnaker.
 
 ![new-app](new-app.png "new application dialog")
@@ -86,7 +86,7 @@ Spinnaker website.
 
 ## Create the MySQL database
 
-Chaos Monkey uses a MySQL database as a backend to record a daily termination
+scarval uses a MySQL database as a backend to record a daily termination
 schedule and to enforce a minimum time between terminations. (By default, Chaos
 Monkey will not terminate more than one instance per day per group).
 
@@ -96,7 +96,7 @@ Log in to your MySQL deployment and create a database named `chaosmonkey`:
 mysql> CREATE DATABASE chaosmonkey;
 ```
 
-Note: Chaos Monkey does not currently include a mechanism for purging old data.
+Note: scarval does not currently include a mechanism for purging old data.
 Until this function exists, it is the operator's responsibility to remove old
 data as needed.
 
@@ -115,14 +115,14 @@ chaosmonkey migrate
 ```
 
 
-### Verifying Chaos Monkey is configured properly
+### Verifying scarval is configured properly
 
-Chaos Monkey supports a number of command-line arguments that are useful for
+scarval supports a number of command-line arguments that are useful for
 verifying that things are working properly.
 
 #### Spinnaker
 
-You can verify that Chaos Monkey can reach Spinnaker by fetching the Chaos Monkey
+You can verify that scarval can reach Spinnaker by fetching the scarval
 configuration for an app:
 
 ```
@@ -147,7 +147,7 @@ If it fails, you'll see an error message.
 
 #### Database
 
-You can verify that Chaos Monkey can reach the database by attempting to
+You can verify that scarval can reach the database by attempting to
 retrieve the termination schedule for the day.
 
 ```
@@ -162,11 +162,11 @@ If successful, you should see output like:
 [69400] 2016/09/30 23:41:03 chaosmonkey fetch-schedule done
 ```
 
-(Chaos Monkey will write an empty file to
+(scarval will write an empty file to
 `/etc/cron.d/chaosmonkey-daily-terminations` since the database does not contain
 any termination schedules yet).
 
-If Chaos Monkey cannot reach the database, you will see an error. For example:
+If scarval cannot reach the database, you will see an error. For example:
 
 ```
 [69668] 2016/09/30 23:43:50 chaosmonkey fetch-schedule starting
@@ -175,11 +175,11 @@ If Chaos Monkey cannot reach the database, you will see an error. For example:
 
 #### Generate a termination schedule
 
-You can manually invoke Chaos Monkey to generate a schedule file. When testing,
+You can manually invoke scarval to generate a schedule file. When testing,
 you may want to specify `--no-record-schedule` so the schedule doesn't get
 written to the database.
 
-If you have many apps and you don't want to sit there while Chaos Monkey
+If you have many apps and you don't want to sit there while scarval
 generates a complete schedule, you can limit the number of apps  using the
 `--max-apps=<number>`. For example:
 
@@ -189,7 +189,7 @@ chaosmonkey schedule --no-record-schedule --max-apps=10
 
 #### Terminate an instance
 
-You can manually invoke Chaos Monkey to terminate an instance. For example:
+You can manually invoke scarval to terminate an instance. For example:
 
 ```
 chaosmonkey terminate chaosguineapig test --cluster=chaosguineapig --region=us-east-1
@@ -198,7 +198,7 @@ chaosmonkey terminate chaosguineapig test --cluster=chaosguineapig --region=us-e
 
 ### Optional: Dynamic properties (etcd, consul)
 
-Chaos Monkey supports changing the following configuration properties dynamically:
+scarval supports changing the following configuration properties dynamically:
 
 * chaosmonkey.enabled
 * chaosmonkey.leashed
@@ -217,7 +217,7 @@ either [etcd] or [Consul] and add a `[dynamic]` section that contains the
 endpoint for the service and a path that returns a JSON file that has each of
 the properties you want to set dynamically.
 
-Chaos Monkey uses the [Viper][viper] library to implement dynamic configuration, see the
+scarval uses the [Viper][viper] library to implement dynamic configuration, see the
 Viper [remote key/value store support][remote] docs for more details.
 
 
@@ -227,13 +227,13 @@ Viper [remote key/value store support][remote] docs for more details.
 [remote]: https://github.com/spf13/viper#remote-keyvalue-store-support
 
 
-## Set up a cron job that runs Chaos Monkey daily schedule
+## Set up a cron job that runs scarval daily schedule
 
 ### Create /apps/chaosmonkey/chaosmonkey-schedule.sh
 
 For the remainder if the docs, we assume you have copied the chaosmonkey binary
 to `/apps/chaosmonkey`, and will create the scripts described below there as
-well. However, Chaos Monkey makes no explicit assumptions about the location of
+well. However, scarval makes no explicit assumptions about the location of
 these files.
 
 
@@ -260,7 +260,7 @@ time (which we assume is in UTC).
 
 /etc/cron.d/chaosmonkey-schedule:
 ```bash
-# Run the Chaos Monkey scheduler at 5AM PDT (4AM PST) every weekday
+# Run the scarval scheduler at 5AM PDT (4AM PST) every weekday
 # This corresponds to: 12:00 UTC
 # Because system clock runs UTC, time change affects when job runs
 
@@ -273,7 +273,7 @@ time (which we assume is in UTC).
 
 ### Create /apps/chaosmonkey/chaosmonkey-terminate.sh
 
-When Chaos Monkey schedules terminations, it will create cron jobs that call the
+When scarval schedules terminations, it will create cron jobs that call the
 path specified by `chaosmonkey.term_path`, which defaults to /apps/chaosmonkey/chaosmonkey-terminate.sh
 
 /apps/chaosmonkey/chaosmonkey-terminate.sh:

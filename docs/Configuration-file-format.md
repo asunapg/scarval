@@ -1,6 +1,6 @@
 The config file is in [TOML] format.
 
-Chaos Monkey will look for a file named `chaosmonkey.toml` in the following
+scarval will look for a file named `chaosmonkey.toml` in the following
 locations:
 
  * `.` (current directory)
@@ -32,7 +32,7 @@ endpoint = "http://spinnaker.example.com:8084"
 ```
 
 Note that while the field is called "encrypted_password", you should put the
-unencrypted version of your password here. Chaos Monkey currently only ships
+unencrypted version of your password here. scarval currently only ships
 with a no-op (do nothing) password decryptor.
 
 
@@ -56,12 +56,12 @@ time_zone = "America/Los_Angeles"  # time zone used by start.hour and end.hour
 
 term_account = "root"              # account used to run the term_path command
 
-max_apps = 2147483647              # max number of apps Chaos Monkey will schedule terminations for
+max_apps = 2147483647              # max number of apps scarval will schedule terminations for
 
-# location of command Chaos Monkey uses for doing terminations
+# location of command scarval uses for doing terminations
 term_path = "/apps/chaosmonkey/chaosmonkey-terminate.sh"
 
-# cron file that Chaos Monkey writes to each day for scheduling kills
+# cron file that scarval writes to each day for scheduling kills
 cron_path = "/etc/cron.d/chaosmonkey-daily-terminations"
 
 # decryption system for encrypted_password fields for spinnaker and database

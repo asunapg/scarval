@@ -42,4 +42,4 @@ func (n noFoo) Filter(s schedule.Schedule) schedule.Schedule {
 ```
 
 See the [Plugins](index.md) page for info on how to build a custom version of
-Chaos Monkey with your plugin.
+scarval with your plugin.

@@ -1,6 +1,6 @@
-An outage checker is used to automatially disable Chaos Monkey during ongoing outages.
+An outage checker is used to automatially disable scarval during ongoing outages.
 
-If you wish to have Chaos Monkey check if there is an ongoing outage and disable
+If you wish to have scarval check if there is an ongoing outage and disable
 accordingly, you need to:
 
 1. Give your outage checker a name (e.g., "chatbot")

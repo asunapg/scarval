@@ -108,9 +108,9 @@ func (s Spinnaker) Execute(trm chaosmonkey.Termination) (err error) {
 func killJSONPayload(ins chaosmonkey.Instance, otherID string, spinnakerUser string) []byte {
 	var desc string
 	if otherID != "" {
-		desc = fmt.Sprintf("Chaos Monkey terminate instance: %s %s (%s, %s, %s)", ins.ID(), otherID, ins.AccountName(), ins.RegionName(), ins.ASGName())
+		desc = fmt.Sprintf("scarval terminate instance: %s %s (%s, %s, %s)", ins.ID(), otherID, ins.AccountName(), ins.RegionName(), ins.ASGName())
 	} else {
-		desc = fmt.Sprintf("Chaos Monkey terminate instance: %s (%s, %s, %s)", ins.ID(), ins.AccountName(), ins.RegionName(), ins.ASGName())
+		desc = fmt.Sprintf("scarval terminate instance: %s (%s, %s, %s)", ins.ID(), ins.AccountName(), ins.RegionName(), ins.ASGName())
 	}
 
 	p := killPayload{

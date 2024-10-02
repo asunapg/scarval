@@ -1,4 +1,4 @@
-site_name: Chaos Monkey
+site_name: scarval
 site_url: https://netflix.github.io/chaosmonkey
 repo_url: https://github.com/Netflix/chaosmonkey
 theme: readthedocs

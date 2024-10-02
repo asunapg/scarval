@@ -45,7 +45,7 @@ func printVersion() {
 }
 
 var (
-	// configPaths is where Chaos Monkey will look for a chaosmonkey.toml
+	// configPaths is where scarval will look for a chaosmonkey.toml
 	// configuration file
 	configPaths = [...]string{".", "/apps/chaosmonkey", "/etc", "/etc/chaosmonkey"}
 )
@@ -53,7 +53,7 @@ var (
 // Usage prints usage
 func Usage() {
 	usage := `
-Chaos Monkey
+scarval
 
 Usage:
 	chaosmonkey <command> ...
@@ -76,7 +76,7 @@ terminations as local cron jobs that call "chaosmonkey terminate ..."
 --apps=foo,bar,baz     Optionally specify an explicit list of apps to schedule.
                        This is primarily used for debugging.
 
---max-apps=<N>         Optionally specify the maximum number of apps that Chaos Monkey
+--max-apps=<N>         Optionally specify the maximum number of apps that scarval
 					   will schedule. This is primarily used for debugging.
 
 --no-record-schedule   Do not record the schedule with the database.
@@ -90,7 +90,7 @@ Terminates an instance from a given app and account.
 Optionally specify a region, stack, cluster.
 
 The --leashed flag forces chaosmonkey to run in leashed mode. When leashed,
-Chaos Monkey will check if an instance should be terminated, but will not
+scarval will check if an instance should be terminated, but will not
 actually terminate it.
 
 fetch-schedule

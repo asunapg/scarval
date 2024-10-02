@@ -26,7 +26,7 @@ import (
 // groups of instances that are eligible for termination.
 //
 // Note that this code does not check for violations of minimum time between
-// terminations. Chaos Monkey checks that precondition immediately before
+// terminations. scarval checks that precondition immediately before
 // termination, not when considering groups of eligible instances.
 //
 // The way instances are divided into group will depend on
@@ -37,7 +37,7 @@ import (
 // each
 //
 // Preconditions:
-//   - app is enabled for Chaos Monkey
+//   - app is enabled for scarval
 func (app *App) EligibleInstanceGroups(cfg chaosmonkey.AppConfig) []grp.InstanceGroup {
 	if !cfg.Enabled {
 		log.Fatalf("app %s unexpectedly disabled", app.Name())

@@ -24,7 +24,7 @@ import (
 )
 
 // FromJSON takes a Spinnaker JSON representation of an app
-// and returns a Chaos Monkey config
+// and returns a scarval config
 // Example:
 //
 //	{

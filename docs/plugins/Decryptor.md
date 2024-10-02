@@ -1,9 +1,9 @@
 A decryptor allows you to use encrypted versions of the passwords for the MySQL
 database and Spinnaker p12 certificate (see [configuration file format](Configuration-file-format)).
-Chaos Monkey will invoke the decryptor to decrypt the passwords before using
+scarval will invoke the decryptor to decrypt the passwords before using
 them.
 
-Chaos Monkey does not ship with any decryptor implementations. If you wish to
+scarval does not ship with any decryptor implementations. If you wish to
 use this functionality, you will need to implement your own.
 
 

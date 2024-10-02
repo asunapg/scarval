@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /*
-Chaos Monkey randomly terminates instances.
+scarval randomly terminates instances.
 */
 package main
 

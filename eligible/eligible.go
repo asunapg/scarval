@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package eligible contains methods that determine which instances are eligible for Chaos Monkey termination
+// Package eligible contains methods that determine which instances are eligible for scarval termination
 package eligible
 
 import (

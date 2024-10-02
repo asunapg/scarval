@@ -21,17 +21,17 @@ import (
 )
 
 const (
-	// App grouping: Chaos Monkey kills one instance per app per day
+	// App grouping: scarval kills one instance per app per day
 	App Group = iota
-	// Stack grouping: Chaos Monkey kills one instance per stack per day
+	// Stack grouping: scarval kills one instance per stack per day
 	Stack
-	// Cluster grouping: Chaos Monkey kills one instance per cluster per day
+	// Cluster grouping: scarval kills one instance per cluster per day
 	Cluster
 )
 
 type (
 
-	// AppConfig contains app-specific configuration parameters for Chaos Monkey
+	// AppConfig contains app-specific configuration parameters for scarval
 	AppConfig struct {
 		Enabled                        bool
 		RegionsAreIndependent          bool
@@ -42,8 +42,8 @@ type (
 		Whitelist                      *[]Exception
 	}
 
-	// Group describes what Chaos Monkey considers a group of instances
-	// Chaos Monkey will randomly kill an instance from each group.
+	// Group describes what scarval considers a group of instances
+	// scarval will randomly kill an instance from each group.
 	// The group generally maps onto what the service owner considers
 	// a "cluster", which is different from Spinnaker's notion of a cluster.
 	Group int
@@ -111,10 +111,10 @@ type (
 		Decrypt(ciphertext string) (string, error)
 	}
 
-	// Env provides information about the environment that Chaos Monkey has been
+	// Env provides information about the environment that scarval has been
 	// deployed to.
 	Env interface {
-		// InTest returns true if Chaos Monkey is running in a test environment
+		// InTest returns true if scarval is running in a test environment
 		InTest() bool
 	}
 
@@ -135,7 +135,7 @@ type (
 	Checker interface {
 		// Check checks if a termination is permitted and, if so, records the
 		// termination time on the server.
-		// The endHour (hour time when Chaos Monkey stops killing) is in the
+		// The endHour (hour time when scarval stops killing) is in the
 		// time zone specified by loc.
 		Check(term Termination, appCfg AppConfig, endHour int, loc *time.Location) error
 	}
@@ -148,7 +148,7 @@ type (
 
 	// Outage provides an interface for checking if there is currently an outage
 	// This provides a mechanism to check if there's an ongoing outage, since
-	// Chaos Monkey doesn't run during outages
+	// scarval doesn't run during outages
 	Outage interface {
 		// Outage returns true if there is an ongoing outage
 		Outage() (bool, error)

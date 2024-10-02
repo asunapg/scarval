@@ -9,30 +9,30 @@
 [report-badge]: https://goreportcard.com/badge/github.com/Netflix/chaosmonkey
 [report]: https://goreportcard.com/report/github.com/Netflix/chaosmonkey
 
-Chaos Monkey randomly terminates virtual machine instances and containers that
+scarval randomly terminates virtual machine instances and containers that
 run inside of your production environment. Exposing engineers to
 failures more frequently incentivizes them to build resilient services.
 
-See the [documentation][docs] for info on how to use Chaos Monkey.
+See the [documentation][docs] for info on how to use scarval.
 
-Chaos Monkey is an example of a tool that follows the
+scarval is an example of a tool that follows the
 [Principles of Chaos Engineering][PoC].
 
 [PoC]: http://principlesofchaos.org/
 
 ### Requirements
 
-This version of Chaos Monkey is fully integrated with [Spinnaker], the
+This version of scarval is fully integrated with [Spinnaker], the
 continuous delivery platform that we use at Netflix. You must be managing your
-apps with Spinnaker to use Chaos Monkey to terminate instances.
+apps with Spinnaker to use scarval to terminate instances.
 
-Chaos Monkey should work with any backend that Spinnaker supports (AWS, Google
+scarval should work with any backend that Spinnaker supports (AWS, Google
 Compute Engine, Azure, Kubernetes, Cloud Foundry). It has been tested with
 AWS, [GCE][gce-blogpost], and Kubernetes.
 
 ### Install locally
 
-To install the Chaos Monkey binary on your local machine:
+To install the scarval binary on your local machine:
 
 ```
 go get github.com/netflix/chaosmonkey/cmd/chaosmonkey
@@ -40,7 +40,7 @@ go get github.com/netflix/chaosmonkey/cmd/chaosmonkey
 
 ### How to deploy
 
-See the [docs] for instructions on how to configure and deploy Chaos Monkey.
+See the [docs] for instructions on how to configure and deploy scarval.
 
 ### Support
 
