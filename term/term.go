@@ -42,7 +42,7 @@ func (l leashedKiller) Execute(trm chaosmonkey.Termination) error {
 type UnleashedInTestEnv struct{}
 
 func (err UnleashedInTestEnv) Error() string {
-	return "not terminating: Chaos Monkey may not run unleashed in the test environment"
+	return "not terminating: scarval may not run unleashed in the test environment"
 }
 
 // Terminate executes the "terminate" command. This selects an instance
@@ -79,7 +79,7 @@ func Terminate(d deps.Deps, app string, account string, region string, stack str
 	}
 
 	if !accountEnabled {
-		log.Printf("Not terminating: account=%s is not enabled in Chaos Monkey", account)
+		log.Printf("Not terminating: account=%s is not enabled in scarval", account)
 		return nil
 	}
 
@@ -103,7 +103,7 @@ func doTerminate(d deps.Deps, group grp.InstanceGroup) error {
 		Do not allow running unleashed in the test environment.
 
 		The prod deployment of chaos monkey is responsible for killing instances
-		across environments, including test. We want to ensure that Chaos Monkey
+		across environments, including test. We want to ensure that scarval
 		running in test cannot do harm.
 	*/
 	if d.Env.InTest() && !leashed {
@@ -118,7 +118,7 @@ func doTerminate(d deps.Deps, group grp.InstanceGroup) error {
 		killer = d.T
 	}
 
-	// get Chaos Monkey config info for this app
+	// get scarval config info for this app
 	appName := group.App()
 	appCfg, err := d.ConfGetter.Get(appName)
 
